@@ -1,0 +1,2240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080914">
+  <meta name="description"
+    content="Shubhanshu Pandey — B.Tech CSE student, developer in progress, and future tech entrepreneur exploring software, web applications, and AI.">
+  <title>Shubhanshu Pandey | Future Tech Entrepreneur</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080914;
+      --bg-soft: #0e1020;
+      --panel: rgba(19, 22, 42, .78);
+      --panel-solid: #12152a;
+      --text: #f3f5ff;
+      --muted: #a3abc7;
+      --line: rgba(173, 186, 255, .16);
+      --cyan: #00f5ff;
+      --purple: #a855f7;
+      --pink: #ed8bff;
+      --success: #7cf7c8;
+      --shadow: 0 20px 70px rgba(0, 0, 0, .32);
+      --radius: 22px;
+      --max: 1160px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -3;
+      background:
+        radial-gradient(ellipse at 15% 10%, rgba(0, 245, 255, .10), transparent 35%),
+        radial-gradient(ellipse at 85% 25%, rgba(168, 85, 247, .12), transparent 38%),
+        linear-gradient(180deg, #080914, #0a0b18 55%, #080914);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    a,
+    input,
+    textarea {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 4px;
+    }
+
+    ::selection {
+      background: rgba(0, 245, 255, .25);
+      color: white;
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -60px;
+      left: 16px;
+      z-index: 1000;
+      padding: 10px 14px;
+      background: var(--cyan);
+      color: #080914;
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    #particle-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      opacity: .56;
+    }
+
+    .loader {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: grid;
+      place-items: center;
+      background: #070812;
+      transition: opacity .6s ease, visibility .6s ease;
+    }
+
+    .loader.done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loader-inner {
+      width: min(340px, 82vw);
+      text-align: center;
+    }
+
+    .loader-mark {
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 20px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0, 245, 255, .65);
+      border-radius: 26px;
+      color: var(--cyan);
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -.08em;
+      box-shadow: 0 0 24px rgba(0, 245, 255, .16), inset 0 0 25px rgba(168, 85, 247, .15);
+      animation: mark-pulse 1.7s ease-in-out infinite alternate;
+      transform: rotate(-6deg);
+    }
+
+    .loader-mark span {
+      transform: rotate(6deg);
+    }
+
+    .loader-label {
+      color: var(--muted);
+      font: 600 .75rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .loader-track {
+      height: 4px;
+      background: #22243b;
+      border-radius: 99px;
+      overflow: hidden;
+      margin-top: 16px;
+    }
+
+    .loader-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      box-shadow: 0 0 16px var(--cyan);
+      animation: load 1.15s ease forwards;
+    }
+
+    @keyframes load {
+      to {
+        width: 100%;
+      }
+    }
+
+    @keyframes mark-pulse {
+      from {
+        box-shadow: 0 0 12px rgba(0, 245, 255, .16), inset 0 0 15px rgba(168, 85, 247, .1);
+      }
+
+      to {
+        box-shadow: 0 0 32px rgba(0, 245, 255, .32), inset 0 0 24px rgba(168, 85, 247, .2);
+      }
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(8, 9, 20, .78);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav {
+      max-width: var(--max);
+      margin: auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 850;
+      letter-spacing: -.03em;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(0, 245, 255, .6);
+      color: var(--cyan);
+      border-radius: 11px;
+      font-size: .72rem;
+      box-shadow: 0 0 18px rgba(0, 245, 255, .12);
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: .64rem;
+      font-weight: 600;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 21px;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: .86rem;
+      transition: color .2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn,
+    .menu-btn {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .035);
+      color: var(--text);
+      border-radius: 12px;
+      min-width: 42px;
+      min-height: 42px;
+      cursor: pointer;
+    }
+
+    .menu-btn {
+      display: none;
+    }
+
+    .container {
+      width: min(var(--max), calc(100% - 40px));
+      margin-inline: auto;
+    }
+
+    .hero {
+      min-height: min(790px, calc(100svh - 65px));
+      display: grid;
+      align-items: center;
+      position: relative;
+      padding: 72px 0 82px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.03fr .97fr;
+      gap: 38px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      border: 1px solid rgba(0, 245, 255, .24);
+      background: rgba(0, 245, 255, .055);
+      color: var(--cyan);
+      padding: 7px 12px;
+      border-radius: 999px;
+      font-size: .76rem;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      font-weight: 750;
+    }
+
+    .pulse-dot {
+      width: 7px;
+      height: 7px;
+      background: var(--success);
+      border-radius: 50%;
+      box-shadow: 0 0 12px var(--success);
+    }
+
+    h1 {
+      font-size: clamp(2.9rem, 6.3vw, 5.6rem);
+      line-height: .99;
+      letter-spacing: -.075em;
+      margin: 22px 0 18px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(100deg, #fff 10%, var(--cyan) 52%, #c79bff 90%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-title-sub {
+      display: block;
+      color: #c5c9e4;
+      font-size: .47em;
+      line-height: 1.4;
+      letter-spacing: -.04em;
+      margin-top: 15px;
+      font-weight: 650;
+    }
+
+    .hero-copy {
+      max-width: 610px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .typing-line {
+      color: var(--cyan);
+      font-weight: 750;
+      min-height: 1.7em;
+    }
+
+    .caret {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--purple);
+      vertical-align: -.13em;
+      margin-left: 4px;
+      animation: blink .8s steps(2) infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 12px 17px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      color: var(--text);
+      background: rgba(255, 255, 255, .04);
+      font-weight: 750;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      border-color: rgba(0, 245, 255, .5);
+      box-shadow: 0 10px 28px rgba(0, 245, 255, .08);
+    }
+
+    .btn-primary {
+      background: linear-gradient(110deg, rgba(0, 245, 255, .17), rgba(168, 85, 247, .22));
+      border-color: rgba(0, 245, 255, .4);
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 18px;
+      margin-top: 26px;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .hero-meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .hero-meta b {
+      color: var(--text);
+      font-weight: 700;
+    }
+
+    .canvas-stage {
+      min-height: 440px;
+      position: relative;
+      display: grid;
+      place-items: center;
+      isolation: isolate;
+    }
+
+    .orbit {
+      position: absolute;
+      border: 1px solid rgba(0, 245, 255, .2);
+      border-radius: 50%;
+      width: min(370px, 80vw);
+      aspect-ratio: 1;
+      animation: rotate 25s linear infinite;
+    }
+
+    .orbit::before,
+    .orbit::after {
+      content: "";
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 18px var(--cyan);
+      top: 14%;
+      left: 16%;
+    }
+
+    .orbit::after {
+      width: 6px;
+      height: 6px;
+      background: var(--purple);
+      box-shadow: 0 0 18px var(--purple);
+      top: auto;
+      left: auto;
+      right: 8%;
+      bottom: 21%;
+    }
+
+    .orbit.orbit-two {
+      width: min(290px, 65vw);
+      border-color: rgba(168, 85, 247, .35);
+      animation-duration: 19s;
+      animation-direction: reverse;
+      transform: rotate(35deg);
+    }
+
+    .orbit.orbit-three {
+      width: min(205px, 49vw);
+      border-style: dashed;
+      border-color: rgba(0, 245, 255, .18);
+      animation-duration: 30s;
+    }
+
+    .geo-core {
+      width: 150px;
+      aspect-ratio: 1;
+      position: relative;
+      display: grid;
+      place-items: center;
+      clip-path: polygon(50% 0, 92% 23%, 92% 76%, 50% 100%, 8% 76%, 8% 23%);
+      background: linear-gradient(140deg, rgba(0, 245, 255, .16), rgba(168, 85, 247, .22));
+      filter: drop-shadow(0 0 24px rgba(0, 245, 255, .28));
+    }
+
+    .geo-core::before {
+      content: "";
+      position: absolute;
+      inset: 2px;
+      clip-path: inherit;
+      background: #0d1020;
+    }
+
+    .geo-core span {
+      position: relative;
+      z-index: 1;
+      font-size: 2rem;
+      color: var(--cyan);
+      font-weight: 900;
+      letter-spacing: -.12em;
+    }
+
+    .float-chip {
+      position: absolute;
+      z-index: 3;
+      border: 1px solid var(--line);
+      background: rgba(13, 16, 32, .88);
+      backdrop-filter: blur(12px);
+      padding: 10px 13px;
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      color: #dce1ff;
+      font-size: .76rem;
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .float-chip strong {
+      display: block;
+      color: var(--cyan);
+      font: 750 .78rem/1.5 ui-monospace, monospace;
+    }
+
+    .chip-one {
+      top: 9%;
+      left: 2%;
+    }
+
+    .chip-two {
+      right: -1%;
+      top: 28%;
+      animation-delay: -1.5s;
+    }
+
+    .chip-three {
+      left: 4%;
+      bottom: 10%;
+      animation-delay: -3s;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-1deg);
+      }
+
+      50% {
+        transform: translateY(-12px) rotate(1deg);
+      }
+    }
+
+    @keyframes rotate {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .scroll-cue {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: .72rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .scroll-cue::before {
+      content: "";
+      width: 32px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan));
+    }
+
+    section {
+      padding: 82px 0;
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .section-kicker {
+      color: var(--cyan);
+      font: 750 .75rem/1.5 ui-monospace, SFMono-Regular, Menlo, monospace;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.1;
+      letter-spacing: -.06em;
+      margin: 8px 0 0;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 570px;
+      margin: 0;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .two-col {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .three-col {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, .12);
+      transition: transform .22s ease, border-color .22s ease, background .22s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 245, 255, .34);
+      background: rgba(20, 24, 46, .88);
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 1.13rem;
+      letter-spacing: -.025em;
+    }
+
+    .card p {
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .icon-tile {
+      width: 43px;
+      height: 43px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 17px;
+      color: var(--cyan);
+      background: linear-gradient(140deg, rgba(0, 245, 255, .12), rgba(168, 85, 247, .16));
+      border: 1px solid rgba(0, 245, 255, .18);
+      font-size: 1.15rem;
+    }
+
+    .about-copy {
+      font-size: 1.02rem;
+      color: #c1c7e0;
+    }
+
+    .facts {
+      display: grid;
+      gap: 0;
+      margin-top: 18px;
+    }
+
+    .fact {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .fact:last-child {
+      border-bottom: 0;
+    }
+
+    .fact span {
+      color: var(--muted);
+    }
+
+    .fact strong {
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .035);
+      color: #dce2ff;
+      font-size: .77rem;
+    }
+
+    .tag.cyan {
+      border-color: rgba(0, 245, 255, .25);
+      color: var(--cyan);
+      background: rgba(0, 245, 255, .06);
+    }
+
+    .skill-item {
+      margin: 17px 0;
+    }
+
+    .skill-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      font-size: .88rem;
+      margin-bottom: 8px;
+    }
+
+    .skill-top span:last-child {
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .skill-track {
+      height: 7px;
+      border-radius: 99px;
+      background: #252741;
+      overflow: hidden;
+    }
+
+    .skill-fill {
+      height: 100%;
+      width: var(--level);
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      transform-origin: left;
+      animation: fill-in 1.3s ease both;
+    }
+
+    @keyframes fill-in {
+      from {
+        transform: scaleX(.1);
+      }
+
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    .project-placeholder {
+      min-height: 225px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(145deg, rgba(0, 245, 255, .055), rgba(168, 85, 247, .09));
+    }
+
+    .project-art {
+      min-height: 90px;
+      display: grid;
+      place-items: center;
+      color: var(--cyan);
+      font: 800 2rem/1 ui-monospace, monospace;
+      letter-spacing: -.1em;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: var(--muted);
+      font-size: .75rem;
+    }
+
+    .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: var(--purple);
+      border-radius: 50%;
+    }
+
+    .timeline {
+      position: relative;
+      display: grid;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 8px;
+      width: 9px;
+      height: 9px;
+      border: 2px solid var(--cyan);
+      border-radius: 50%;
+      background: var(--bg);
+      box-shadow: 0 0 12px rgba(0, 245, 255, .3);
+    }
+
+    .timeline-item::after {
+      content: "";
+      position: absolute;
+      top: 24px;
+      bottom: -21px;
+      left: 8px;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .timeline-item:last-child::after {
+      display: none;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .91rem;
+    }
+
+    .timeline-date {
+      color: var(--cyan);
+      font: 700 .72rem/1.5 ui-monospace, monospace;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .resource-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .search-box {
+      flex: 1 1 240px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .035);
+      color: var(--text);
+      border-radius: 13px;
+      padding: 12px 14px;
+    }
+
+    .filter-btn {
+      border: 1px solid var(--line);
+      color: var(--muted);
+      background: transparent;
+      border-radius: 12px;
+      padding: 10px 13px;
+      cursor: pointer;
+    }
+
+    .filter-btn[aria-pressed="true"] {
+      color: var(--cyan);
+      border-color: rgba(0, 245, 255, .4);
+      background: rgba(0, 245, 255, .07);
+    }
+
+    .resource-card {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .resource-card .resource-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: auto;
+      padding-top: 8px;
+    }
+
+    .text-link {
+      color: var(--cyan);
+      font-weight: 750;
+      font-size: .86rem;
+    }
+
+    .text-link:hover {
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .empty-state {
+      padding: 28px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--line);
+      border-radius: var(--radius);
+    }
+
+    .tracker {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 25px;
+      align-items: start;
+    }
+
+    .tracker-number {
+      font-size: 3.3rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -.08em;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .tracker-progress {
+      height: 9px;
+      background: #252741;
+      border-radius: 99px;
+      overflow: hidden;
+      margin: 18px 0;
+    }
+
+    .tracker-progress div {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--cyan), var(--purple));
+      transition: width .25s ease;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 12px;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .025);
+    }
+
+    .check-row input {
+      margin-top: 5px;
+      accent-color: var(--cyan);
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .check-row label {
+      cursor: pointer;
+      flex: 1;
+    }
+
+    .check-row small {
+      display: block;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .terminal {
+      overflow: hidden;
+      border: 1px solid rgba(0, 245, 255, .23);
+      border-radius: 18px;
+      background: #070a13;
+      box-shadow: 0 18px 50px rgba(0, 0, 0, .25);
+    }
+
+    .terminal-head {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 12px 15px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, .025);
+    }
+
+    .terminal-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ff6584;
+    }
+
+    .terminal-dot:nth-child(2) {
+      background: #ffc857;
+    }
+
+    .terminal-dot:nth-child(3) {
+      background: #7cf7c8;
+    }
+
+    .terminal-title {
+      margin-left: 7px;
+      color: var(--muted);
+      font: .74rem ui-monospace, monospace;
+    }
+
+    .terminal-output {
+      min-height: 230px;
+      max-height: 310px;
+      overflow-y: auto;
+      padding: 18px;
+      font: .84rem/1.8 ui-monospace, SFMono-Regular, Menlo, monospace;
+      color: #c7d0e9;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+
+    .terminal-output .accent {
+      color: var(--cyan);
+    }
+
+    .terminal-output .purple {
+      color: #d3a7ff;
+    }
+
+    .terminal-output .good {
+      color: var(--success);
+    }
+
+    .terminal-form {
+      display: flex;
+      gap: 9px;
+      padding: 12px;
+      border-top: 1px solid var(--line);
+    }
+
+    .terminal-prompt {
+      color: var(--success);
+      font: .83rem ui-monospace, monospace;
+      align-self: center;
+    }
+
+    .terminal-form input {
+      min-width: 0;
+      flex: 1;
+      background: transparent;
+      border: 0;
+      color: var(--text);
+      outline: none;
+      font: .85rem ui-monospace, monospace;
+    }
+
+    .terminal-form button {
+      background: rgba(0, 245, 255, .1);
+      color: var(--cyan);
+      border: 1px solid rgba(0, 245, 255, .25);
+      border-radius: 9px;
+      padding: 7px 11px;
+      cursor: pointer;
+    }
+
+    .note-card {
+      min-height: 190px;
+    }
+
+    .note-card time {
+      color: var(--cyan);
+      font: .72rem ui-monospace, monospace;
+    }
+
+    .note-card h3 {
+      margin-top: 10px;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 20px;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      background: rgba(255, 255, 255, .025);
+    }
+
+    .contact-link:hover {
+      border-color: rgba(0, 245, 255, .35);
+    }
+
+    .contact-link span {
+      color: var(--muted);
+      font-size: .78rem;
+      display: block;
+    }
+
+    .contact-link strong {
+      font-size: .9rem;
+      overflow-wrap: anywhere;
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 13px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: .82rem;
+      color: #dbe0f7;
+      font-weight: 700;
+    }
+
+    .field input,
+    .field textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, .035);
+      color: var(--text);
+      padding: 12px 13px;
+    }
+
+    .field textarea {
+      min-height: 125px;
+      resize: vertical;
+    }
+
+    .form-note {
+      color: var(--muted);
+      font-size: .78rem;
+      margin: 0;
+    }
+
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 25px 0;
+      color: var(--muted);
+      font-size: .8rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+
+    .back-top {
+      color: var(--cyan);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    .small-note {
+      color: var(--muted);
+      font-size: .78rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 930px) {
+      .nav-links {
+        gap: 12px;
+      }
+
+      .nav-links a {
+        font-size: .8rem;
+      }
+
+      .hero-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding-top: 55px;
+      }
+
+      .hero-copy {
+        max-width: 720px;
+      }
+
+      .canvas-stage {
+        min-height: 370px;
+      }
+
+      .two-col,
+      .three-col {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        padding: 12px 18px;
+      }
+
+      .menu-btn {
+        display: inline-grid;
+        place-items: center;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 65px;
+        left: 12px;
+        right: 12px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(9, 11, 24, .97);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .nav-links a {
+        padding: 10px;
+        font-size: .9rem;
+      }
+
+      .container {
+        width: min(100% - 32px, var(--max));
+      }
+
+      section {
+        padding: 64px 0;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .two-col,
+      .three-col,
+      .tracker,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .canvas-stage {
+        min-height: 330px;
+      }
+
+      .chip-one {
+        left: 0;
+      }
+
+      .chip-two {
+        right: 0;
+      }
+
+      .scroll-cue {
+        display: none;
+      }
+
+      .hero {
+        min-height: auto;
+        padding-bottom: 40px;
+      }
+
+      .card {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .brand>span:last-child {
+        font-size: .9rem;
+      }
+
+      .brand small {
+        font-size: .58rem;
+      }
+
+      .nav-actions .icon-btn {
+        display: none;
+      }
+
+      h1 {
+        font-size: clamp(2.65rem, 15vw, 3.5rem);
+      }
+
+      .canvas-stage {
+        min-height: 285px;
+      }
+
+      .orbit {
+        width: 250px;
+      }
+
+      .orbit.orbit-two {
+        width: 200px;
+      }
+
+      .orbit.orbit-three {
+        width: 145px;
+      }
+
+      .float-chip {
+        font-size: .68rem;
+        padding: 8px 10px;
+      }
+
+      .chip-one {
+        top: 4%;
+      }
+
+      .chip-three {
+        bottom: 3%;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      #particle-canvas {
+        display: none;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <div class="loader" id="loader" aria-label="Loading portfolio">
+    <div class="loader-inner">
+      <div class="loader-mark" aria-hidden="true"><span>◇</span></div>
+      <div class="loader-label">Initializing portfolio // SP</div>
+      <div class="loader-track" aria-hidden="true">
+        <div class="loader-bar"></div>
+      </div>
+      <p class="small-note">Loading creative workspace…</p>
+    </div>
+  </div>
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Shubhanshu Pandey homepage">
+        <span class="brand-icon" aria-hidden="true">◇</span>
+        <span>Shubhanshu Pandey<small>Future Tech Entrepreneur</small></span>
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a>
+        <a href="#journey">Journey</a><a href="#resources">Resources</a><a href="#notes">Notes</a><a
+          href="#contact">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" id="motionToggle" type="button" aria-pressed="false"
+          aria-label="Pause decorative animations" title="Toggle decorative animations">Ⅱ</button>
+        <button class="menu-btn" id="menuToggle" type="button" aria-expanded="false" aria-controls="navLinks"
+          aria-label="Open navigation menu">☰</button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="eyebrow"><span class="pulse-dot" aria-hidden="true"></span> Learning, building, evolving</div>
+          <h1><span class="gradient-text">Shubhanshu</span><br>Pandey<span class="hero-title-sub">Future Tech
+              Entrepreneur</span></h1>
+          <p class="hero-copy">Tech enthusiast exploring AI, software development, and computer science. I’m building my
+            foundations one concept at a time, with a long-term goal of creating useful software and web applications.
+          </p>
+          <p class="typing-line"><span id="typingText" aria-live="polite">Learning C++ and DSA</span><span class="caret"
+              aria-hidden="true"></span></p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="#projects">Explore my journey <span aria-hidden="true">↗</span></a>
+            <a class="btn" href="#contact">Get in touch</a>
+          </div>
+          <div class="hero-meta">
+            <span>⌁ <b>B.Tech CSE</b> · 1st year, 2nd semester</span>
+            <span>◎ <b>Class of 2030</b></span>
+          </div>
+        </div>
+        <div class="canvas-stage" aria-label="Abstract animated geometric technology illustration">
+          <div class="orbit" aria-hidden="true"></div>
+          <div class="orbit orbit-two" aria-hidden="true"></div>
+          <div class="orbit orbit-three" aria-hidden="true"></div>
+          <div class="geo-core" aria-hidden="true"><span>◇</span></div>
+          <div class="float-chip chip-one"><strong>01 / LEARN</strong>Build strong fundamentals</div>
+          <div class="float-chip chip-two"><strong>02 / CREATE</strong>Software · Web apps</div>
+          <div class="float-chip chip-three"><strong>03 / EXPLORE</strong>Ideas into impact</div>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#about">Scroll to explore</a>
+    </section>
+
+    <section id="about">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">01 // About me</div>
+            <h2>A work in progress.<br><span class="gradient-text">A big-picture mindset.</span></h2>
+          </div>
+          <p class="section-intro">A balanced mix of computer science, creativity, and entrepreneurial curiosity.</p>
+        </div>
+        <div class="grid two-col">
+          <article class="card reveal">
+            <div class="icon-tile" aria-hidden="true">✳</div>
+            <h3>My story</h3>
+            <p class="about-copy">I’m a first-year B.Tech Computer Science and Engineering student at BBD NIIT, Lucknow.
+              I’m learning programming fundamentals, practicing problem-solving, exploring AI and machine learning, and
+              learning how developers collaborate using Git and GitHub.</p>
+            <p class="about-copy" style="margin-top:14px">Beyond code, I enjoy reading, football, writing, and creative
+              ideas. Someday, I hope to build a startup around software and web applications that solve real problems.
+              For now, I’m focused on learning consistently and turning small steps into solid skills.</p>
+            <div class="tag-list"><span class="tag cyan">Curious by nature</span><span class="tag">Student
+                developer</span><span class="tag">Future founder</span></div>
+          </article>
+          <aside class="card reveal">
+            <h3>Quick profile</h3>
+            <div class="facts">
+              <div class="fact"><span>Education</span><strong>B.Tech · CSE</strong></div>
+              <div class="fact"><span>College</span><strong>BBD NIIT, Lucknow</strong></div>
+              <div class="fact"><span>Current year</span><strong>1st year · 2nd semester</strong></div>
+              <div class="fact"><span>Expected graduation</span><strong>2030</strong></div>
+              <div class="fact"><span>Career direction</span><strong>Software & web apps</strong></div>
+              <div class="fact"><span>Current focus</span><strong>C++ · DSA · Web · AI</strong></div>
+            </div>
+            <p class="small-note" style="margin-top:16px">Profile photo placeholder: add your own image later if you
+              want one.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">02 // Skills in progress</div>
+            <h2>Learning the building blocks.</h2>
+          </div>
+          <p class="section-intro">These labels describe current learning areas, not expert-level claims. The progress
+            bars are visual indicators, not measured proficiency scores.</p>
+        </div>
+        <div class="grid two-col">
+          <article class="card reveal">
+            <h3>Programming & development</h3>
+            <div class="skill-item">
+              <div class="skill-top"><span>C++ and problem-solving</span><span>Learning</span></div>
+              <div class="skill-track">
+                <div class="skill-fill" style="--level:42%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top"><span>C programming</span><span>Foundations</span></div>
+              <div class="skill-track">
+                <div class="skill-fill" style="--level:32%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top"><span>JavaScript</span><span>Beginner</span></div>
+              <div class="skill-track">
+                <div class="skill-fill" style="--level:28%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top"><span>Python</span><span>Exploring basics</span></div>
+              <div class="skill-track">
+                <div class="skill-fill" style="--level:25%"></div>
+              </div>
+            </div>
+            <div class="tag-list"><span class="tag">Simple programs</span><span class="tag">Learning by practice</span>
+            </div>
+          </article>
+          <article class="card reveal">
+            <h3>Tools & emerging interests</h3>
+            <div class="skill-item">
+              <div class="skill-top"><span>Git & GitHub</span><span>Beginner</span></div>
+              <div class="skill-track">
+                <div class="skill-fill" style="--level:30%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top"><span>Data Structures & Algorithms</span><span>Building fundamentals</span></div>
+              <div class="skill-track">
+                <div class="skill-fill" style="--level:28%"></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-top"><span>AI / Machine Learning</span><span>Exploring</span></div>
+              <div class="skill-track">
+                <div class="skill-fill" style="--level:18%"></div>
+              </div>
+            </div>
+            <div class="tag-list"><span class="tag cyan">Problem solving</span><span class="tag">Innovation</span><span
+                class="tag">Software ideas</span></div>
+            <p class="small-note" style="margin-top:16px">Progress is expected to change as I practice and complete real
+              work.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">03 // Projects</div>
+            <h2>Room to build something real.</h2>
+          </div>
+          <p class="section-intro">I’m still building my project portfolio. Rather than inventing finished work, this
+            section is ready for future projects.</p>
+        </div>
+        <div class="grid three-col">
+          <article class="card project-placeholder reveal">
+            <div>
+              <div class="project-art" aria-hidden="true">&lt;/&gt;</div><span class="status">Coming soon</span>
+              <h3 style="margin-top:12px">First programming project</h3>
+              <p>A small project to practice programming logic and write clean, understandable code.</p>
+            </div>
+            <div class="tag-list"><span class="tag">C++</span><span class="tag">Fundamentals</span></div>
+          </article>
+          <article class="card project-placeholder reveal">
+            <div>
+              <div class="project-art" aria-hidden="true">◇ WEB</div><span class="status">Planned learning
+                project</span>
+              <h3 style="margin-top:12px">Web application</h3>
+              <p>A future hands-on project to learn how useful web experiences are designed and built.</p>
+            </div>
+            <div class="tag-list"><span class="tag">JavaScript</span><span class="tag">Web</span></div>
+          </article>
+          <article class="card project-placeholder reveal">
+            <div>
+              <div class="project-art" aria-hidden="true">AI / ?</div><span class="status">Idea stage</span>
+              <h3 style="margin-top:12px">Software startup idea</h3>
+              <p>Exploring everyday problems that could be solved with practical software or web applications.</p>
+            </div>
+            <div class="tag-list"><span class="tag">Innovation</span><span class="tag">Product thinking</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="journey">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">04 // Learning journey</div>
+            <h2>One concept at a time.</h2>
+          </div>
+          <p class="section-intro">A snapshot of what I’m learning now and what I’m working toward next.</p>
+        </div>
+        <div class="grid two-col">
+          <article class="card reveal">
+            <h3>Current learning roadmap</h3>
+            <div class="timeline" style="margin-top:23px">
+              <div class="timeline-item">
+                <div class="timeline-date">Current focus</div>
+                <h3>C++ and DSA</h3>
+                <p>Practice basic concepts, simple programs, and problem-solving fundamentals.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">In progress</div>
+                <h3>JavaScript</h3>
+                <p>Explore the foundations needed to make websites interactive.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">Exploring</div>
+                <h3>Python and AI / ML</h3>
+                <p>Build familiarity with Python and discover how AI and machine learning work.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">Ongoing</div>
+                <h3>Git and GitHub</h3>
+                <p>Practice version control, repository basics, and tracking changes.</p>
+              </div>
+            </div>
+          </article>
+          <article class="card reveal">
+            <h3>Education & future direction</h3>
+            <div class="timeline" style="margin-top:23px">
+              <div class="timeline-item">
+                <div class="timeline-date">Present</div>
+                <h3>B.Tech Computer Science & Engineering</h3>
+                <p>BBD NIIT, Lucknow · 1st year, 2nd semester.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">Goal · 2030</div>
+                <h3>Complete my degree</h3>
+                <p>Strengthen computer science fundamentals and gain practical experience along the way.</p>
+              </div>
+              <div class="timeline-item">
+                <div class="timeline-date">Long-term ambition</div>
+                <h3>Build a software startup</h3>
+                <p>Create software and web applications that address real needs. The specific idea is still being
+                  explored.</p>
+              </div>
+            </div>
+            <div class="tag-list"><span class="tag">AI & innovation</span><span class="tag">Reading</span><span
+                class="tag">Football</span><span class="tag">Writing</span><span class="tag">Creativity</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="resources">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">05 // Learning resources</div>
+            <h2>Tools I use to learn.</h2>
+          </div>
+          <p class="section-intro">Only the platforms I’ve named are listed here. Search by platform or learning
+            purpose.</p>
+        </div>
+        <div class="resource-tools reveal" role="search">
+          <div class="search-box"><label class="sr-only" for="resourceSearch">Search learning resources</label><input
+              id="resourceSearch" type="search" placeholder="Search resources…" autocomplete="off"></div>
+          <button class="filter-btn" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter-btn" type="button" data-filter="coding" aria-pressed="false">Coding practice</button>
+          <button class="filter-btn" type="button" data-filter="tools" aria-pressed="false">Developer tools</button>
+        </div>
+        <div class="grid two-col" id="resourceGrid">
+          <article class="card resource-card reveal" data-category="coding"
+            data-search="leetcode coding practice problems algorithms data structures problem solving">
+            <div class="icon-tile" aria-hidden="true">⌘</div>
+            <h3>LeetCode</h3>
+            <p>Practice coding problems and gradually build problem-solving skills and DSA fundamentals.</p>
+            <div class="resource-bottom"><span class="tag">Coding practice</span><a class="text-link"
+                href="https://leetcode.com/u/Shubhanshu_17/" target="_blank" rel="noopener noreferrer">My profile ↗</a>
+            </div>
+          </article>
+          <article class="card resource-card reveal" data-category="tools"
+            data-search="github git repositories version control projects collaboration development">
+            <div class="icon-tile" aria-hidden="true">⌘</div>
+            <h3>GitHub</h3>
+            <p>Learn repository basics, track changes with Git, and keep future coding projects organized.</p>
+            <div class="resource-bottom"><span class="tag">Developer tools</span><a class="text-link"
+                href="https://github.com/SHUBHAN5HU" target="_blank" rel="noopener noreferrer">My profile ↗</a></div>
+          </article>
+        </div>
+        <p class="empty-state" id="resourceEmpty" hidden>No resources match that search. Try another keyword.</p>
+      </div>
+    </section>
+
+    <section id="progress">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">06 // Coding tracker</div>
+            <h2>Small steps add up.</h2>
+          </div>
+          <p class="section-intro">Tick off learning milestones as you complete them. This tracker saves progress in
+            this browser on this device only.</p>
+        </div>
+        <div class="card tracker reveal">
+          <div>
+            <div class="tracker-number" id="progressPercent">0%</div>
+            <p style="color:var(--muted);margin:8px 0">Learning milestones completed</p>
+            <div class="tracker-progress" role="progressbar" aria-label="Coding learning milestones completed"
+              aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="progressBar">
+              <div id="progressFill"></div>
+            </div>
+            <p class="small-note" id="progressSummary" aria-live="polite">0 of 6 milestones completed.</p><button
+              class="btn" id="resetProgress" type="button" style="margin-top:10px">Reset progress</button>
+          </div>
+          <div class="checklist" id="milestoneList">
+            <div class="check-row"><input type="checkbox" id="m1" data-milestone="m1"><label for="m1">Write a simple C++
+                program<small>Practice input, output, variables, and basic logic.</small></label></div>
+            <div class="check-row"><input type="checkbox" id="m2" data-milestone="m2"><label for="m2">Practice loops and
+                functions<small>Write small programs using reusable logic.</small></label></div>
+            <div class="check-row"><input type="checkbox" id="m3" data-milestone="m3"><label for="m3">Solve a few
+                beginner problems<small>Build a steady problem-solving habit.</small></label></div>
+            <div class="check-row"><input type="checkbox" id="m4" data-milestone="m4"><label for="m4">Learn basic Git
+                commands<small>Practice status, add, commit, and push.</small></label></div>
+            <div class="check-row"><input type="checkbox" id="m5" data-milestone="m5"><label for="m5">Build a small web
+                page<small>Make a simple page and improve it iteratively.</small></label></div>
+            <div class="check-row"><input type="checkbox" id="m6" data-milestone="m6"><label for="m6">Publish a first
+                personal project<small>Document what it does and what you learned.</small></label></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="terminal">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">07 // Interactive terminal</div>
+            <h2>A little developer playground.</h2>
+          </div>
+          <p class="section-intro">This is a simulated terminal for fun—not a real shell. It cannot access your files or
+            run system commands.</p>
+        </div>
+        <div class="terminal reveal">
+          <div class="terminal-head"><span class="terminal-dot"></span><span class="terminal-dot"></span><span
+              class="terminal-dot"></span><span class="terminal-title">shubhanshu@portfolio:~</span></div>
+          <div class="terminal-output" id="terminalOutput" role="log" aria-live="polite"><span class="accent">Welcome to
+              SP terminal v1.0</span>
+            Type <span class="purple">help</span> to see available commands.
+            This is a local simulation. No commands are executed on your computer.</div>
+          <form class="terminal-form" id="terminalForm">
+            <label class="terminal-prompt" for="terminalInput">visitor@sp:~$</label>
+            <input id="terminalInput" name="command" autocomplete="off" spellcheck="false"
+              aria-label="Enter a simulated terminal command" placeholder="try help">
+            <button type="submit">Run</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section id="notes">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">08 // Notes & writing</div>
+            <h2>Ideas I’m collecting.</h2>
+          </div>
+          <p class="section-intro">A home for learning notes now and technical articles or startup reflections later.
+            These are planned topics, not published posts.</p>
+        </div>
+        <div class="resource-tools reveal" role="search">
+          <div class="search-box"><label class="sr-only" for="noteSearch">Search learning notes</label><input
+              id="noteSearch" type="search" placeholder="Search notes and future topics…" autocomplete="off"></div>
+        </div>
+        <div class="grid three-col" id="notesGrid">
+          <article class="card note-card reveal"
+            data-search="c++ programming basics variables loops functions beginner"><time>LEARNING NOTE · PLANNED</time>
+            <h3>C++ foundations</h3>
+            <p>Notes on variables, conditions, loops, functions, and lessons from beginner programs.</p>
+            <div class="tag-list"><span class="tag">C++</span><span class="tag">Basics</span></div>
+          </article>
+          <article class="card note-card reveal"
+            data-search="data structures algorithms dsa problem solving arrays strings"><time>LEARNING NOTE ·
+              PLANNED</time>
+            <h3>DSA problem-solving journal</h3>
+            <p>Record approaches, mistakes, and what each practice problem teaches me.</p>
+            <div class="tag-list"><span class="tag">DSA</span><span class="tag">Practice</span></div>
+          </article>
+          <article class="card note-card reveal" data-search="ai machine learning python technology concepts beginner">
+            <time>LEARNING NOTE · PLANNED</time>
+            <h3>Exploring AI and ML</h3>
+            <p>A beginner-friendly collection of concepts and questions as I explore AI and Python.</p>
+            <div class="tag-list"><span class="tag">AI / ML</span><span class="tag">Python</span></div>
+          </article>
+          <article class="card note-card reveal" data-search="git github version control commits repositories">
+            <time>LEARNING NOTE · PLANNED</time>
+            <h3>Git and GitHub basics</h3>
+            <p>Commands, repositories, commits, and practical version-control notes.</p>
+            <div class="tag-list"><span class="tag">Git</span><span class="tag">GitHub</span></div>
+          </article>
+          <article class="card note-card reveal" data-search="web application javascript software development design">
+            <time>FUTURE ARTICLE · IDEA</time>
+            <h3>What makes a useful web app?</h3>
+            <p>Ideas about usability, solving real problems, and making software easier to use.</p>
+            <div class="tag-list"><span class="tag">Web apps</span><span class="tag">Product thinking</span></div>
+          </article>
+          <article class="card note-card reveal"
+            data-search="startup entrepreneurship ideas students technology innovation"><time>FUTURE ARTICLE ·
+              IDEA</time>
+            <h3>Learning to think like a founder</h3>
+            <p>Questions to explore before turning a technology idea into a product or startup.</p>
+            <div class="tag-list"><span class="tag">Startups</span><span class="tag">Innovation</span></div>
+          </article>
+        </div>
+        <p class="empty-state" id="notesEmpty" hidden>No notes match that search. Try another keyword.</p>
+      </div>
+    </section>
+
+    <section id="interests">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">09 // Beyond code</div>
+            <h2>Curiosity doesn’t stop at tech.</h2>
+          </div>
+          <p class="section-intro">The interests that keep my learning broad and creative.</p>
+        </div>
+        <div class="grid four-col three-col">
+          <article class="card reveal">
+            <div class="icon-tile" aria-hidden="true">✧</div>
+            <h3>AI & innovation</h3>
+            <p>Exploring new technologies and the problems they might help solve.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-tile" aria-hidden="true">▤</div>
+            <h3>Reading</h3>
+            <p>Discovering new ideas, perspectives, and ways to think.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-tile" aria-hidden="true">⚽</div>
+            <h3>Football & sports</h3>
+            <p>Enjoying the energy, teamwork, and strategy of sports.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-tile" aria-hidden="true">✎</div>
+            <h3>Writing & creativity</h3>
+            <p>Collecting ideas and expressing them through words and creative work.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-tile" aria-hidden="true">◇</div>
+            <h3>Entrepreneurship</h3>
+            <p>Thinking about software products and practical solutions for everyday problems.</p>
+          </article>
+          <article class="card reveal">
+            <div class="icon-tile" aria-hidden="true">⌘</div>
+            <h3>Problem solving</h3>
+            <p>Learning to break a big challenge into smaller, manageable steps.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="container">
+        <div class="section-head reveal">
+          <div>
+            <div class="section-kicker">10 // Contact</div>
+            <h2>Let’s connect.</h2>
+          </div>
+          <p class="section-intro">Open to learning, exchanging ideas, and connecting with people interested in
+            technology and creativity.</p>
+        </div>
+        <div class="contact-grid">
+          <article class="card reveal">
+            <h3>Find me online</h3>
+            <p>Choose a platform to connect. Email is the most direct way to reach me.</p>
+            <div class="contact-links">
+              <a class="contact-link" href="mailto:shubhanshup23@gmail.com"><span aria-hidden="true">✉</span>
+                <div><strong>Email me</strong><span>shubhanshup23@gmail.com</span></div>
+              </a>
+              <a class="contact-link" href="https://github.com/SHUBHAN5HU" target="_blank"
+                rel="noopener noreferrer"><span aria-hidden="true">⌘</span>
+                <div><strong>GitHub</strong><span>github.com/SHUBHAN5HU</span></div>
+              </a>
+              <a class="contact-link" href="https://www.linkedin.com/in/shubhanshu-pandey-ab3b88404/" target="_blank"
+                rel="noopener noreferrer"><span aria-hidden="true">in</span>
+                <div><strong>LinkedIn</strong><span>Connect professionally</span></div>
+              </a>
+              <a class="contact-link" href="https://www.instagram.com/shu8h4n5hu/" target="_blank"
+                rel="noopener noreferrer"><span aria-hidden="true">◎</span>
+                <div><strong>Instagram</strong><span>@shu8h4n5hu</span></div>
+              </a>
+              <a class="contact-link" href="https://leetcode.com/u/Shubhanshu_17/" target="_blank"
+                rel="noopener noreferrer"><span aria-hidden="true">⌘</span>
+                <div><strong>LeetCode</strong><span>Problem-solving profile</span></div>
+              </a>
+            </div>
+          </article>
+          <article class="card reveal">
+            <h3>Send a message</h3>
+            <form class="contact-form" id="contactForm">
+              <div class="field"><label for="contactName">Your name</label><input id="contactName" name="name" required
+                  maxlength="100" autocomplete="name" placeholder="How should I address you?"></div>
+              <div class="field"><label for="contactEmail">Your email</label><input id="contactEmail" name="email"
+                  type="email" required maxlength="150" autocomplete="email" placeholder="you@example.com"></div>
+              <div class="field"><label for="contactMessage">Message</label><textarea id="contactMessage" name="message"
+                  required maxlength="3000" placeholder="Write your message…"></textarea></div>
+              <button class="btn btn-primary" type="submit">Prepare email ↗</button>
+              <p class="form-note" id="contactStatus" aria-live="polite">This form opens your email app with a draft. It
+                does not send messages automatically. For direct website submissions, connect a trusted form service or
+                backend.</p>
+            </form>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Shubhanshu Pandey · Built with curiosity and code.</span>
+      <span>Learning in public, one step at a time. <a class="back-top" href="#home">Back to top ↑</a></span>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      "use strict";
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+      const loader = document.getElementById("loader");
+      const motionToggle = document.getElementById("motionToggle");
+      const canvas = document.getElementById("particle-canvas");
+      let motionPaused = reducedMotion.matches;
+      let animationFrame = null;
+      let particles = [];
+      const ctx = canvas.getContext ? canvas.getContext("2d") : null;
+
+      // Neon loading screen. The timeout is intentionally short and does not block page content.
+      window.addEventListener("load", () => {
+        window.setTimeout(() => loader.classList.add("done"), reducedMotion.matches ? 150 : 1250);
+      });
+
+      // Decorative particle canvas: automatically disabled for reduced-motion preferences.
+      function resizeCanvas() {
+        if (!ctx || motionPaused) return;
+        const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+        canvas.width = Math.floor(window.innerWidth * dpr);
+        canvas.height = Math.floor(window.innerHeight * dpr);
+        canvas.style.width = window.innerWidth + "px";
+        canvas.style.height = window.innerHeight + "px";
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        const count = Math.min(62, Math.floor(window.innerWidth / 22));
+        particles = Array.from({length: count}, () => ({
+          x: Math.random() * window.innerWidth,
+          y: Math.random() * window.innerHeight,
+          r: Math.random() * 1.5 + .35,
+          vx: (Math.random() - .5) * .28,
+          vy: (Math.random() - .5) * .28,
+          purple: Math.random() > .52
+        }));
+      }
+      function drawParticles() {
+        if (!ctx || motionPaused) return;
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        for (let i = 0; i < particles.length; i++) {
+          const p = particles[i];
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > window.innerWidth) p.vx *= -1;
+          if (p.y < 0 || p.y > window.innerHeight) p.vy *= -1;
+          ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = p.purple ? "rgba(168,85,247,.7)" : "rgba(0,245,255,.7)";
+          ctx.fill();
+          for (let j = i + 1; j < particles.length; j++) {
+            const q = particles[j], dx = p.x - q.x, dy = p.y - q.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < 95) {
+              ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(q.x, q.y);
+              ctx.strokeStyle = "rgba(110,150,210," + (0.09 * (1 - distance / 95)) + ")";
+              ctx.lineWidth = .6; ctx.stroke();
+            }
+          }
+        }
+        animationFrame = requestAnimationFrame(drawParticles);
+      }
+      function startParticles() {
+        if (!ctx || motionPaused) {canvas.style.display = "none"; return;}
+        canvas.style.display = "block";
+        cancelAnimationFrame(animationFrame);
+        resizeCanvas();
+        drawParticles();
+      }
+      function stopParticles() {
+        cancelAnimationFrame(animationFrame);
+        if (ctx) ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        canvas.style.display = "none";
+      }
+      function updateMotionButton() {
+        motionToggle.setAttribute("aria-pressed", String(motionPaused));
+        motionToggle.setAttribute("aria-label", motionPaused ? "Enable decorative animations" : "Pause decorative animations");
+        motionToggle.title = motionPaused ? "Enable decorative animations" : "Pause decorative animations";
+        motionToggle.textContent = motionPaused ? "▶" : "Ⅱ";
+      }
+      motionToggle.addEventListener("click", () => {
+        motionPaused = !motionPaused;
+        document.body.classList.toggle("motion-paused", motionPaused);
+        if (motionPaused) {
+          stopParticles();
+          document.querySelectorAll(".reveal").forEach(el => el.classList.add("visible"));
+        } else startParticles();
+        updateMotionButton();
+      });
+      reducedMotion.addEventListener?.("change", event => {
+        if (event.matches) {
+          motionPaused = true; stopParticles();
+          document.querySelectorAll(".reveal").forEach(el => el.classList.add("visible"));
+        }
+        updateMotionButton();
+      });
+      if (!motionPaused) startParticles();
+      updateMotionButton();
+      window.addEventListener("resize", () => {if (!motionPaused) startParticles();}, {passive: true});
+
+      // Mobile navigation.
+      const menuToggle = document.getElementById("menuToggle");
+      const navLinks = document.getElementById("navLinks");
+      menuToggle.addEventListener("click", () => {
+        const open = navLinks.classList.toggle("open");
+        menuToggle.setAttribute("aria-expanded", String(open));
+        menuToggle.setAttribute("aria-label", open ? "Close navigation menu" : "Open navigation menu");
+        menuToggle.textContent = open ? "✕" : "☰";
+      });
+      navLinks.querySelectorAll("a").forEach(link => link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation menu");
+        menuToggle.textContent = "☰";
+      }));
+
+      // Typing headline effect. Avoid it when reduced motion is enabled.
+      const typingEl = document.getElementById("typingText");
+      const phrases = ["Learning C++ and DSA", "Exploring web development", "Discovering AI and ML", "Building toward a software startup"];
+      let phraseIndex = 0, charIndex = phrases[0].length, deleting = false, typingTimer;
+      function typeLoop() {
+        if (motionPaused) return;
+        const phrase = phrases[phraseIndex];
+        if (!deleting) {
+          charIndex++;
+          typingEl.textContent = phrase.slice(0, charIndex);
+          if (charIndex >= phrase.length) {deleting = true; typingTimer = setTimeout(typeLoop, 1500); return;}
+        } else {
+          charIndex--;
+          typingEl.textContent = phrase.slice(0, charIndex);
+          if (charIndex <= 0) {deleting = false; phraseIndex = (phraseIndex + 1) % phrases.length;}
+        }
+        typingTimer = setTimeout(typeLoop, deleting ? 35 : 65);
+      }
+      if (!motionPaused) typingTimer = setTimeout(typeLoop, 1800);
+      motionToggle.addEventListener("click", () => {
+        clearTimeout(typingTimer);
+        if (!motionPaused) {typingEl.textContent = phrases[phraseIndex]; typingTimer = setTimeout(typeLoop, 1200);}
+      });
+
+      // Scroll reveals. Reduced-motion users see all content immediately.
+      const revealEls = document.querySelectorAll(".reveal");
+      if ("IntersectionObserver" in window && !reducedMotion.matches) {
+        const observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {entry.target.classList.add("visible"); observer.unobserve(entry.target);}
+          });
+        }, {threshold: .12});
+        revealEls.forEach(el => observer.observe(el));
+      } else revealEls.forEach(el => el.classList.add("visible"));
+
+      // Searchable resource cards and category filters.
+      const resourceSearch = document.getElementById("resourceSearch");
+      const resourceCards = Array.from(document.querySelectorAll("#resourceGrid .resource-card"));
+      const filterButtons = Array.from(document.querySelectorAll("[data-filter]"));
+      const resourceEmpty = document.getElementById("resourceEmpty");
+      let activeFilter = "all";
+      function filterResources() {
+        const query = resourceSearch.value.trim().toLowerCase();
+        let shown = 0;
+        resourceCards.forEach(card => {
+          const matchesQuery = (card.dataset.search + " " + card.textContent).toLowerCase().includes(query);
+          const matchesFilter = activeFilter === "all" || card.dataset.category === activeFilter;
+          const visible = matchesQuery && matchesFilter;
+          card.hidden = !visible;
+          if (visible) shown++;
+        });
+        resourceEmpty.hidden = shown > 0;
+      }
+      resourceSearch.addEventListener("input", filterResources);
+      filterButtons.forEach(button => button.addEventListener("click", () => {
+        activeFilter = button.dataset.filter;
+        filterButtons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+        filterResources();
+      }));
+
+      // Searchable learning notes.
+      const noteSearch = document.getElementById("noteSearch");
+      const noteCards = Array.from(document.querySelectorAll("#notesGrid .note-card"));
+      const notesEmpty = document.getElementById("notesEmpty");
+      noteSearch.addEventListener("input", () => {
+        const query = noteSearch.value.trim().toLowerCase();
+        let shown = 0;
+        noteCards.forEach(card => {
+          const visible = (card.dataset.search + " " + card.textContent).toLowerCase().includes(query);
+          card.hidden = !visible;
+          if (visible) shown++;
+        });
+        notesEmpty.hidden = shown > 0;
+      });
+
+      // Progress tracker. localStorage is best-effort; page still works if storage is unavailable.
+      const storageKey = "shubhanshuPortfolioMilestonesV1";
+      const milestoneInputs = Array.from(document.querySelectorAll("[data-milestone]"));
+      const progressPercent = document.getElementById("progressPercent");
+      const progressFill = document.getElementById("progressFill");
+      const progressBar = document.getElementById("progressBar");
+      const progressSummary = document.getElementById("progressSummary");
+      function readProgress() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey) || "{}");
+          milestoneInputs.forEach(input => {input.checked = saved[input.dataset.milestone] === true;});
+        } catch (_) { /* Storage may be blocked; use current page state. */}
+      }
+      function saveProgress() {
+        const state = {};
+        milestoneInputs.forEach(input => state[input.dataset.milestone] = input.checked);
+        try {localStorage.setItem(storageKey, JSON.stringify(state));} catch (_) { }
+        updateProgress();
+      }
+      function updateProgress() {
+        const complete = milestoneInputs.filter(input => input.checked).length;
+        const percent = Math.round((complete / milestoneInputs.length) * 100);
+        progressPercent.textContent = percent + "%";
+        progressFill.style.width = percent + "%";
+        progressBar.setAttribute("aria-valuenow", String(percent));
+        progressSummary.textContent = complete + " of " + milestoneInputs.length + " milestones completed.";
+      }
+      milestoneInputs.forEach(input => input.addEventListener("change", saveProgress));
+      document.getElementById("resetProgress").addEventListener("click", () => {
+        if (!window.confirm("Reset all saved learning milestones on this browser?")) return;
+        milestoneInputs.forEach(input => input.checked = false);
+        saveProgress();
+      });
+      readProgress(); updateProgress();
+
+      // Simulated terminal. It only responds to a small allow-list of local commands.
+      const terminalForm = document.getElementById("terminalForm");
+      const terminalInput = document.getElementById("terminalInput");
+      const terminalOutput = document.getElementById("terminalOutput");
+      const commandHistory = [];
+      let historyIndex = 0;
+      function addTerminalLine(html) {
+        const line = document.createElement("div");
+        line.innerHTML = html;
+        terminalOutput.appendChild(line);
+        terminalOutput.scrollTop = terminalOutput.scrollHeight;
+      }
+      const commands = {
+        help: '<span class="accent">Available commands</span>\n<span class="purple">help</span> — list commands\n<span class="purple">about</span> — about Shubhanshu\n<span class="purple">skills</span> — current learning areas\n<span class="purple">goals</span> — long-term direction\n<span class="purple">socials</span> — profile links\n<span class="purple">clear</span> — clear terminal',
+        about: '<span class="accent">Shubhanshu Pandey</span>\nB.Tech CSE student at BBD NIIT, Lucknow.\nLearning programming, web development, and AI/ML.',
+        skills: '<span class="accent">Currently learning</span>\nC++ / DSA · C · JavaScript · Python\nGit & GitHub · exploring AI / ML\nStatus: <span class="good">in progress</span>',
+        goals: '<span class="accent">Long-term goal</span>\nBuild a startup focused on software and web applications.\nCurrent step: learn fundamentals and practice consistently.',
+        socials: 'GitHub: github.com/SHUBHAN5HU\nLeetCode: leetcode.com/u/Shubhanshu_17/\nLinkedIn: shubhanshu-pandey-ab3b88404'
+      };
+      terminalForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const command = terminalInput.value.trim().toLowerCase();
+        if (!command) return;
+        commandHistory.push(command); historyIndex = commandHistory.length;
+        addTerminalLine('<span class="good">visitor@sp:~$</span> ' + command.replace(/[&<>"]/g, ch => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;"}[ch])));
+        if (command === "clear") {
+          terminalOutput.textContent = "";
+        } else if (Object.prototype.hasOwnProperty.call(commands, command)) {
+          addTerminalLine(commands[command].replace(/\n/g, "<br>"));
+        } else {
+          addTerminalLine('<span class="purple">Command not found.</span> Type <span class="accent">help</span> to see available commands.');
+        }
+        terminalInput.value = "";
+      });
+      terminalInput.addEventListener("keydown", event => {
+        if (event.key === "ArrowUp") {
+          event.preventDefault();
+          if (historyIndex > 0) {historyIndex--; terminalInput.value = commandHistory[historyIndex];}
+        } else if (event.key === "ArrowDown") {
+          event.preventDefault();
+          if (historyIndex < commandHistory.length - 1) {historyIndex++; terminalInput.value = commandHistory[historyIndex];}
+          else {historyIndex = commandHistory.length; terminalInput.value = "";}
+        }
+      });
+
+      // Contact form: open a prefilled email draft; it does not transmit data directly.
+      document.getElementById("contactForm").addEventListener("submit", event => {
+        event.preventDefault();
+        const form = event.currentTarget;
+        if (!form.reportValidity()) return;
+        const name = document.getElementById("contactName").value.trim();
+        const email = document.getElementById("contactEmail").value.trim();
+        const message = document.getElementById("contactMessage").value.trim();
+        const subject = encodeURIComponent("Portfolio message from " + name);
+        const body = encodeURIComponent("Name: " + name + "\nEmail: " + email + "\n\nMessage:\n" + message);
+        document.getElementById("contactStatus").textContent = "Opening your email app with a draft. If it doesn't open, email shubhanshup23@gmail.com directly.";
+        window.location.href = "mailto:shubhanshup23@gmail.com?subject=" + subject + "&body=" + body;
+      });
+
+      document.getElementById("year").textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+
+</html>
